@@ -117,11 +117,22 @@ func TestPollingRespeitaTimeout(t *testing.T) {
 }
 
 func TestPrazoDaAberturaDoPainel(t *testing.T) {
-	// A abertura levou 57,4 s numa coleta válida (TJAP 05/2025, 13/11/2026); as outras etapas, até 17 s.
+	// A abertura levou 57,4 s e 81 s em coletas válidas (TJAP 05/2025 e TRT1 09/2026).
 	if p := (crawler{}).prazoAbertura(); p != 2*defaultStepTimeout {
 		t.Fatalf("padrão = %s", p)
 	}
 	if p := (crawler{stepTimeout: 45 * time.Second}).prazoAbertura(); p != 90*time.Second {
 		t.Fatalf("com STEP_TIMEOUT=45s = %s", p)
+	}
+}
+
+func TestPrazoPadraoDaEtapa(t *testing.T) {
+	// Em 16/11/2026, a imagem de produção esperou 90 s na abertura do controle de envio do TRT1
+	// e terminou a coleta OK. Com 60 s, o mesmo caso viraria falha.
+	if p := (crawler{}).prazoEtapa(); p != 2*time.Minute {
+		t.Fatalf("padrão = %s", p)
+	}
+	if p := (crawler{}).prazoAbertura(); p >= 5*time.Minute {
+		t.Fatalf("abertura = %s, não pode chegar ao GENERAL_TIMEOUT de 5 min do executor", p)
 	}
 }

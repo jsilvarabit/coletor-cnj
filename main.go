@@ -18,7 +18,7 @@ const (
 	defaultFileDownloadTimeout = 20 * time.Second // Tempo máximo de transferência de cada arquivo
 	defaultGeneralTimeout      = 6 * time.Minute  // Duração máxima total da coleta de todos os arquivos. Valor padrão calculado a partir de uma média de execuções ~4.5min
 	defaulTimeBetweenSteps     = 30 * time.Second // Compatibilidade com o executor; esperas agora dependem do estado do painel
-	defaultStepTimeout         = 60 * time.Second // Tempo máximo de cada etapa no painel; um travamento falha aqui e não no GENERAL_TIMEOUT
+	defaultStepTimeout         = 2 * time.Minute  // Tempo máximo de cada etapa no painel; um travamento falha aqui e não no GENERAL_TIMEOUT. O painel já levou 90 s numa etapa e se recuperou (16/11/2026)
 	defaultPollTimeout         = 30 * time.Second // Mesmo valor implícito do chromedp.PollFunction; agora explícito e configurável
 )
 

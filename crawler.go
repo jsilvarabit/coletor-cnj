@@ -385,8 +385,8 @@ func (c crawler) prazoEtapa() time.Duration {
 	return c.stepTimeout
 }
 
-// A carga inicial do painel varia muito: de 3 a 6 s na maioria das coletas, mas 57,4 s numa
-// coleta válida do TJAP. Por isso ela tem o dobro do prazo das outras etapas.
+// A carga inicial do painel varia muito: de 3 a 6 s na maioria das coletas, mas 57,4 s e 81 s em
+// coletas válidas (TJAP 05/2025 e TRT1 09/2026). Por isso ela tem o dobro do prazo das outras etapas.
 func (c crawler) prazoAbertura() time.Duration {
 	return 2 * c.prazoEtapa()
 }
